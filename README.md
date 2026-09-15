@@ -27,28 +27,46 @@ Libros - /api/libros
 Permite administrar los libros de una biblioteca.
 
 POST   /api/libros
+
 GET    /api/libros
+
 GET    /api/libros/buscar?titulo={titulo}
+
 PUT    /api/libros/{id}
+
 DELETE /api/libros/{id}
+
 Cursos - /api/cursos
+
 
 Permite administrar cursos universitarios.
 
 POST   /api/cursos
+
 GET    /api/cursos
+
 GET    /api/cursos/buscar?codigo={codigo}
+
 PUT    /api/cursos/{id}
+
 DELETE /api/cursos/{id}
+
 Reservas - /api/reservas
+
 
 Permite administrar reservas de un hotel.
 
 POST   /api/reservas
+
 GET    /api/reservas
+
 GET    /api/reservas/{id}
+
 PUT    /api/reservas/{id}
+
 PATCH  /api/reservas/{id}/cancelar
+
+
 Diseño de las APIs
 
 Los primeros ejercicios corresponden al diseño de las APIs utilizando archivos YAML basados en el estándar OpenAPI 3.0.3.
@@ -77,11 +95,16 @@ Visual Studio Code
 Estructura del proyecto
 
 laboratorio6-apis/
-├── pom.xml
+├── pom.xml 
+
 ├── README.md
+
 ├── .gitignore
+
 └── src/
+
     └── main/
+    
         ├── java/
         │   └── com/
         │       └── laboratorio6_apis/
