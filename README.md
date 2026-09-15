@@ -138,11 +138,13 @@ Desde la terminal, ubicada en la carpeta del proyecto, ejecutar:
 La aplicación se ejecutará en:
 
 http://localhost:8080
+
 Swagger
 
 La documentación de las APIs puede consultarse mediante Swagger en:
 
 http://localhost:8080/swagger-ui/index.html
+
 Almacenamiento
 
 Los datos utilizados por las APIs se almacenan temporalmente en memoria mediante listas.
