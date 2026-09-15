@@ -1,6 +1,6 @@
 package com.laboratorio6_apis.model;
 
-public class libro {
+public class Libro {
 
     private Long id;
     private String titulo;
@@ -9,10 +9,10 @@ public class libro {
     private Integer anioPublicacion;
     private String estado;
 
-    public libro() {
+    public Libro() {
     }
 
-    public libro(Long id, String titulo, String autor, String isbn,
+    public Libro(Long id, String titulo, String autor, String isbn,
                  Integer anioPublicacion, String estado) {
         this.id = id;
         this.titulo = titulo;

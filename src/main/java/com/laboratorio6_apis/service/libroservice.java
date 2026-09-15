@@ -1,20 +1,20 @@
 package com.laboratorio6_apis.service;
 
-import com.laboratorio6_apis.model.libro;
+import com.laboratorio6_apis.model.Libro;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class libroservice {
+public class LibroService {
 
-    private List<libro> libros = new ArrayList<>();
+    private List<Libro> libros = new ArrayList<>();
 
     private Long siguienteId = 1L;
 
     // Registrar libro
-    public libro registrarLibro(libro libro) {
+    public Libro registrarLibro(Libro libro) {
 
         libro.setId(siguienteId);
         siguienteId++;
@@ -25,16 +25,16 @@ public class libroservice {
     }
 
     // Consultar libros
-    public List<libro> consultarLibros() {
+    public List<Libro> consultarLibros() {
         return libros;
     }
 
     // Consultar por título
-    public List<libro> consultarPorTitulo(String titulo) {
+    public List<Libro> consultarPorTitulo(String titulo) {
 
-        List<libro> resultados = new ArrayList<>();
+        List<Libro> resultados = new ArrayList<>();
 
-        for (libro libro : libros) {
+        for (Libro libro : libros) {
 
             if (libro.getTitulo()
                     .toLowerCase()
@@ -48,9 +48,9 @@ public class libroservice {
     }
 
     // Consultar por ID
-    public libro consultarPorId(Long id) {
+    public Libro consultarPorId(Long id) {
 
-        for (libro libro : libros) {
+        for (Libro libro : libros) {
 
             if (libro.getId().equals(id)) {
                 return libro;
@@ -61,9 +61,9 @@ public class libroservice {
     }
 
     // Actualizar libro
-    public libro actualizarLibro(Long id, libro datos) {
+    public Libro actualizarLibro(Long id, Libro datos) {
 
-        libro libro = consultarPorId(id);
+        Libro libro = consultarPorId(id);
 
         if (libro != null) {
 
@@ -82,7 +82,7 @@ public class libroservice {
     // Eliminar libro
     public boolean eliminarLibro(Long id) {
 
-        libro libro = consultarPorId(id);
+        Libro libro = consultarPorId(id);
 
         if (libro != null) {
 

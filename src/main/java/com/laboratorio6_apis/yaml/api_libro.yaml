@@ -1,0 +1,256 @@
+openapi: 3.0.3
+
+info:
+  title: API de Administración de Libros
+  description: API REST para administrar los libros de una biblioteca.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+tags:
+  - name: Libros
+    description: Operaciones para administrar libros
+
+paths:
+
+  /api/libros:
+
+    post:
+      tags:
+        - Libros
+      summary: Registrar un libro
+      description: Registra un nuevo libro en la biblioteca.
+      operationId: registrarLibro
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LibroRequest'
+
+      responses:
+        '201':
+          description: Libro registrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+
+        '400':
+          description: Datos de entrada inválidos
+
+    get:
+      tags:
+        - Libros
+      summary: Consultar todos los libros
+      description: Obtiene la lista de libros registrados.
+      operationId: consultarLibros
+
+      responses:
+        '200':
+          description: Lista de libros obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Libro'
+
+
+  /api/libros/buscar:
+
+    get:
+      tags:
+        - Libros
+      summary: Buscar libro por título
+      description: Busca libros cuyo título coincida con el texto proporcionado.
+      operationId: buscarLibroPorTitulo
+
+      parameters:
+        - name: titulo
+          in: query
+          required: true
+          description: Título o parte del título del libro que se desea buscar.
+          schema:
+            type: string
+            example: El principito
+
+      responses:
+        '200':
+          description: Búsqueda realizada correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Libro'
+
+
+  /api/libros/{id}:
+
+    get:
+      tags:
+        - Libros
+      summary: Consultar un libro por ID
+      description: Obtiene la información de un libro específico.
+      operationId: consultarLibroPorId
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único del libro.
+          schema:
+            type: integer
+            format: int64
+            example: 1
+
+      responses:
+        '200':
+          description: Libro encontrado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+
+        '404':
+          description: Libro no encontrado
+
+
+    put:
+      tags:
+        - Libros
+      summary: Actualizar un libro
+      description: Actualiza la información de un libro existente.
+      operationId: actualizarLibro
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único del libro.
+          schema:
+            type: integer
+            format: int64
+            example: 1
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LibroRequest'
+
+      responses:
+        '200':
+          description: Libro actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+
+        '404':
+          description: Libro no encontrado
+
+        '400':
+          description: Datos de entrada inválidos
+
+
+    delete:
+      tags:
+        - Libros
+      summary: Eliminar un libro
+      description: Elimina un libro de la biblioteca.
+      operationId: eliminarLibro
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único del libro.
+          schema:
+            type: integer
+            format: int64
+            example: 1
+
+      responses:
+        '204':
+          description: Libro eliminado correctamente
+
+        '404':
+          description: Libro no encontrado
+
+
+components:
+
+  schemas:
+
+    Libro:
+      type: object
+      description: Información completa de un libro.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificador único del libro.
+          example: 1
+
+        titulo:
+          type: string
+          description: Título del libro.
+          example: Cien años de soledad
+
+        autor:
+          type: string
+          description: Autor del libro.
+          example: Gabriel García Márquez
+
+        isbn:
+          type: string
+          description: Código ISBN del libro.
+          example: 9780307474728
+
+        anioPublicacion:
+          type: integer
+          description: Año de publicación del libro.
+          example: 1967
+
+        estado:
+          type: string
+          description: Estado actual del libro.
+          example: DISPONIBLE
+
+
+    LibroRequest:
+      type: object
+      description: Datos necesarios para registrar o actualizar un libro.
+      required:
+        - titulo
+        - autor
+        - isbn
+        - anioPublicacion
+        - estado
+
+      properties:
+        titulo:
+          type: string
+          example: Cien años de soledad
+
+        autor:
+          type: string
+          example: Gabriel García Márquez
+
+        isbn:
+          type: string
+          example: 9780307474728
+
+        anioPublicacion:
+          type: integer
+          example: 1967
+
+        estado:
+          type: string
+          example: DISPONIBLE

@@ -1,7 +1,7 @@
 package com.laboratorio6_apis.controller;
 
-import com.laboratorio6_apis.model.libro;
-import com.laboratorio6_apis.service.libroservice;
+import com.laboratorio6_apis.model.Libro;
+import com.laboratorio6_apis.service.LibroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,48 +10,48 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/libros")
-public class librocontroller {
+public class LibroController {
 
-    private final libroservice libroservice;
+    private final LibroService libroService;
 
-    public librocontroller(libroservice libroservice) {
-        this.libroservice = libroservice;
+    public LibroController(LibroService libroService) {
+        this.libroService = libroService;
     }
 
     // POST - Registrar libro
     @PostMapping
-    public ResponseEntity<libro> registrarLibro(@RequestBody libro libro) {
+    public ResponseEntity<Libro> registrarLibro(@RequestBody Libro libro) {
 
-        libro nuevoLibro = libroservice.registrarLibro(libro);
+        Libro nuevoLibro = libroService.registrarLibro(libro);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoLibro);
     }
 
     // GET - Consultar libros
     @GetMapping
-    public ResponseEntity<List<libro>> consultarLibros() {
+    public ResponseEntity<List<Libro>> consultarLibros() {
 
         return ResponseEntity.ok(
-                libroservice.consultarLibros()
+                libroService.consultarLibros()
         );
     }
 
     // GET - Consultar por título
     @GetMapping("/buscar")
-    public ResponseEntity<List<libro>> consultarPorTitulo(
+    public ResponseEntity<List<Libro>> consultarPorTitulo(
             @RequestParam String titulo) {
 
         return ResponseEntity.ok(
-                libroservice.consultarPorTitulo(titulo)
+                libroService.consultarPorTitulo(titulo)
         );
     }
 
     // GET - Consultar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<libro> consultarPorId(
+    public ResponseEntity<Libro> consultarPorId(
             @PathVariable Long id) {
 
-        libro libro = libroservice.consultarPorId(id);
+        Libro libro = libroService.consultarPorId(id);
 
         if (libro != null) {
             return ResponseEntity.ok(libro);
@@ -62,12 +62,12 @@ public class librocontroller {
 
     // PUT - Actualizar libro
     @PutMapping("/{id}")
-    public ResponseEntity<libro> actualizarLibro(
+    public ResponseEntity<Libro> actualizarLibro(
             @PathVariable Long id,
-            @RequestBody libro datos) {
+            @RequestBody Libro datos) {
 
-        libro libroActualizado =
-                libroservice.actualizarLibro(id, datos);
+        Libro libroActualizado =
+                libroService.actualizarLibro(id, datos);
 
         if (libroActualizado != null) {
             return ResponseEntity.ok(libroActualizado);
@@ -82,7 +82,7 @@ public class librocontroller {
             @PathVariable Long id) {
 
         boolean eliminado =
-                libroservice.eliminarLibro(id);
+                libroService.eliminarLibro(id);
 
         if (eliminado) {
             return ResponseEntity.noContent().build();
